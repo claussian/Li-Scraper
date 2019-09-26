@@ -13,34 +13,41 @@ import re
 class Scraper:
 
     def __init__(self):
+
+        self.credentials = 'pd.json'
+        self.keyset = 'keyset.json'
+        self.results = 'results.csv'
+        self.profileKey = 'dataKey.json'
+        self.searchQuery = 'data scientist AND Singapore'
+
         print('\n')
         print('Reading in files...')
 
-        with open('pd.json') as f:
+        with open(self.credentials) as f:
             self.pd = ujson.load(f)
 
-        with open('keyset.json') as g:
+        with open(self.keyset) as g:
             self.ks = ujson.load(g)
         
-        dKExist = os.path.isfile('dataKey.json')
+        dKExist = os.path.isfile(self.profileKey)
         if dKExist:
-            with open('dataKey.json') as h:
+            with open(self.profileKey) as h:
                 self.dataKey = ujson.load(h)
         else:
             self.dataKey = {}
-            with open('dataKey.json', 'w') as d:
+            with open(self.profileKey, 'w') as d:
                 ujson.dump(self.dataKey, d)
 
-        resultsExist = os.path.isfile('results.csv')
+        resultsExist = os.path.isfile(self.results)
         if resultsExist:
-            with open('results.csv') as g:
+            with open(self.results) as g:
                 next(g)
                 filereader = csv.reader(g)
                 self.dataList = [line for line in filereader]
                 print('%d existing rows in dataList.' %len(self.dataList))
         else:
             self.dataList = []
-            with open('results.csv', 'w') as w:
+            with open(self.results, 'w') as w:
                 writer = csv.writer(w)
                 writer.writerows([['id','name','title','experience','education']])
                 print('Writing new results list.')
@@ -49,7 +56,7 @@ class Scraper:
         with open('exponential_lambda_1_in_2.csv') as b:
             next(b)
             self.expo = [float(line) for line in b]
-    
+
         self.scrollCounter = 0
         self.profileCounter = {}
         self.completedPages = 0
@@ -57,12 +64,23 @@ class Scraper:
     def returnXPathOrClassName(self, current, key):
         array = self.ks[current]
         ident = list(filter(lambda x: x['key'] == key, array))
-        return ident[0]['value']
+        value = ident[0]['value']
+        if len(value.split(':::')) == 1:
+            return value
+        else:
+            return value.split(':::')
+
+    def getMultipleConditions(self, classArray):
+        mcArray = list(map(lambda x: f" and contains(@class, '{x}')", classArray[1:]))
+        firstElem = f"contains(@class, '{classArray[0]}')"
+        mc = reduce((lambda x,y: x + y), [firstElem] + mcArray)
+        return mc
 
     def getName(self, selector, driver):
-        nameClass = self.returnXPathOrClassName('profile', 'name')
-        try:           
-            name = selector.xpath('//*[starts-with(@class, "'+ nameClass + '")]/text()').get().strip()
+        nameClassArray = self.returnXPathOrClassName('profile', 'name')
+        try:
+            nameClass = self.getMultipleConditions(nameClassArray)
+            name = selector.xpath(f"//*[{nameClass}]/text()").get().strip()
         except:
             try:
                 nameClass = self.returnXPathOrClassName('profile', 'name-alt')
@@ -75,9 +93,11 @@ class Scraper:
         return name
 
     def getTitle(self, selector, driver):
-        titleClass = self.returnXPathOrClassName('profile', 'title')
+        titleClassArray = self.returnXPathOrClassName('profile', 'title')
         try:
-            title = selector.xpath('//*[starts-with(@class, "'+ titleClass + '")]/text()').get().strip()
+            titleClass = self.getMultipleConditions(titleClassArray)
+            title = selector.xpath(f"//*[{titleClass}]/text()").get().strip()
+            #title = selector.xpath('//*[starts-with(@class, "'+ titleClass + '")]/text()').get().strip()
         except:
             sleep(1)
             print('finding title..')
@@ -113,7 +133,7 @@ class Scraper:
             p = checkTitle
 
             companyClass = self.returnXPathOrClassName('profile', 'company')
-            c = sel.xpath('//span[contains(@class,"' + companyClass + '")]/text()').get()
+            c = sel.xpath('//*[contains(@class,"' + companyClass + '")]/text()').get()
 
             durationClass = self.returnXPathOrClassName('profile', 'duration')
             d = sel.xpath('//span[contains(@class,"' + durationClass + '")]/text()').get()
@@ -155,7 +175,7 @@ class Scraper:
         elif len(fullDegree) == 0:
             return ""
         else:
-            fd = reduce((lambda x,y: x + '::' + y), fullDegree)
+            fd = reduce((lambda x,y: x + ':::' + y), fullDegree)
             return fd
 
     def getEducation(self, selector, driver):
@@ -183,7 +203,6 @@ class Scraper:
 
         certifications = selector.xpath('//*[contains(@class, "'+ eduClass + '")]//div[contains(@class,"' + certClass + '")]').getall()
         certifications = list(map(lambda x: self.getFullDegree(x, certBreakdownClass), certifications))
-        #assert(len(certifications) >= 1)
 
         assert(len(schools) == len(certifications))
 
@@ -243,11 +262,11 @@ class Scraper:
                 dataKey[href] = True
                 self.profileCounter[href] = True
 
-                with open('results.csv','a') as r:
+                with open(self.results,'a') as r:
                     writer = csv.writer(r)
                     writer.writerows([dataList[-1]])
                 
-                with open('dataKey.json', 'w') as d:
+                with open(self.profileKey, 'w') as d:
                     ujson.dump(dataKey, d)
         
                 print('...Done. Scraped %d profiles.' %len(dataList))
@@ -318,7 +337,7 @@ class Scraper:
         print('Finding search bar...')
         search_bar = driver.find_element_by_xpath(self.returnXPathOrClassName(current, 'search_bar'))
 
-        search_bar.send_keys('data scientist AND Singapore')
+        search_bar.send_keys(self.searchQuery)
 
         print('\n')
         print('Entering search.')
@@ -378,7 +397,7 @@ class Scraper:
 
                     pageIcon.click()
 
-                    sleep(3)
+                    sleep(4)
 
                 self.dataList, self.dataKey = self.goToProfile(profileClassName, self.dataList, self.dataKey, driver)
 
