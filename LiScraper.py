@@ -19,6 +19,8 @@ class Scraper:
         self.results = 'results.csv'
         self.profileKey = 'dataKey.json'
         self.searchQuery = 'data scientist AND Singapore'
+        self.completedPages = 0
+        self.totalPages = 100
 
         print('\n')
         print('Reading in files...')
@@ -59,7 +61,6 @@ class Scraper:
 
         self.scrollCounter = 0
         self.profileCounter = {}
-        self.completedPages = 0
        
     def returnXPathOrClassName(self, current, key):
         array = self.ks[current]
@@ -360,7 +361,7 @@ class Scraper:
 
         profileClassName = self.returnXPathOrClassName('profile', 'profile')
 
-        for page in range(101):
+        for page in range(self.completedPages, self.totalPages+1):
             if page <= self.completedPages:
                 continue
             else:
