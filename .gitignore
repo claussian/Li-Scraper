@@ -1,6 +1,6 @@
 # Credentials
 pd.json
-dataKey.json
+dataKey*
 
 # Results
-results.csv
+results*
