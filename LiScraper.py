@@ -15,9 +15,9 @@ class Scraper:
     def __init__(self):
 
         self.credentials = 'pd.json'
-        self.keyset = 'keyset.json'
-        self.results = 'results.csv'
-        self.profileKey = 'dataKey.json'
+        self.keyset = 'keyset_2020.json'
+        self.results = 'results_2020.csv'
+        self.profileKey = 'dataKey_2020.json'
         self.searchQuery = 'data scientist AND Singapore'
         self.completedPages = 0
         self.totalPages = 100
@@ -375,7 +375,7 @@ class Scraper:
                     while True:
                         try:
                             # scroll to bottom of page
-                            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                            driver.execute_script("document.body.scrollTop = document.body.scrollHeight;document.documentElement.scrollTop = document.documentElement.scrollHeight;window.scrollTo(0, document.documentElement.scrollTop || document.body.scrollTop);")
                             sleep(1)
                             pageIcon = driver.find_element_by_xpath(pageXpath)
                             break
