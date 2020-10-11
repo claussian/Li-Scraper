@@ -9,6 +9,7 @@ verify_ssl = true
 selenium = "*"
 parsel = "*"
 ujson = "*"
+numpy = "*"
 
 [requires]
 python_version = "3.7"
