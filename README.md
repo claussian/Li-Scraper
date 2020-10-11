@@ -2,7 +2,7 @@
 
 `LiScraper.py` is a single-pass script meant to extract a list of profiles from within your own LinkedIn network, according to the results of a search query e.g. `data scientist AND Singapore`. This script was used to fulfill the use case described in the following [Medium article](https://towardsdatascience.com/i-wasnt-getting-hired-as-a-data-scientist-so-i-sought-data-on-who-is-c59afd7d56f5). Please remember that [LinkedIn has a User Agreement that expressly prohibits crawlers and scraping activity on their website](https://www.linkedin.com/help/linkedin/answer/56347/prohibited-software-and-extensions?lang=en) - use this resource at your own risk.
 
-Also note that LinkedIn will not allow viewing of profiles beyond 3rd degree connections. **As such, please be aware of biases arising from the [inspection paradox](https://towardsdatascience.com/the-inspection-paradox-is-everywhere-2ef1c2e9d709) when attempting to make inferences about the population of Data Scientists or other professionals of interest using your own social network.**
+Also note that LinkedIn will not display profiles beyond 3rd degree connections. **As such, please be aware of biases arising from the [inspection paradox](https://towardsdatascience.com/the-inspection-paradox-is-everywhere-2ef1c2e9d709) when attempting to make inferences about the population of Data Scientists or other professionals of interest using your own social network.**
 
 Within the script, the following parameters can be changed according to your requirements:
 
