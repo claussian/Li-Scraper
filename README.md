@@ -1,6 +1,6 @@
 # Li-Scraper
 
-`LiScraper.py` is a single-pass script meant to extract a list of profiles from within your own LinkedIn network, according to the results of a search query e.g. `data scientist AND Singapore`. Please remember that [LinkedIn has a User Agreement that expressly prohibits crawlers and scraping activity on their website](https://www.linkedin.com/help/linkedin/answer/56347/prohibited-software-and-extensions?lang=en) - use this resource at your own risk. 
+`LiScraper.py` is a single-pass script meant to extract a list of profiles from within your own LinkedIn network, according to the results of a search query e.g. `data scientist AND Singapore`. Please remember that [LinkedIn has a User Agreement that expressly prohibits crawlers and scraping activity on their website](https://www.linkedin.com/help/linkedin/answer/56347/prohibited-software-and-extensions?lang=en) - use this resource at your own risk.
 
 Note that LinkedIn will not allow viewing of profiles beyond 3rd degree connections. **As such, please be aware of biases arising from the [inspection paradox](https://towardsdatascience.com/the-inspection-paradox-is-everywhere-2ef1c2e9d709) when attempting to make inferences about the population of Data Scientists or other professionals of interest using your own social network.**
 
@@ -16,7 +16,7 @@ Profiles will be written to this file in .csv format, one profile per row. You d
 This will store the unique profile links that have been scraped. The scraper might halt for various reasons after execution, and this store helps to keep track of scraped profiles in case it needs to be restarted. You do not have to create this file before running the script.
 
 `self.searchQuery`
-This will contain the search query for profiles of interest. 
+This will contain the search query for profiles of interest.
 
 `self.completedPages`
 In case the scraper halts midway, this will enable you to pick up at the page where you left off.
@@ -39,7 +39,7 @@ Li-Scraper uses ChromeDriver to emulate browser interactions, so make sure you h
 Once inside the virtual environment, run  `pipenv run python Li-Scraper.py`.
 
 ## Results
-Results are written to the file `results.csv`, one profile per row. Because each profile may have multiple entries for education and 
+Results are written to the file `results.csv`, one profile per row. Because each profile may have multiple entries for education and
 experience, the data for each of these parameters are written as a json object array, with the following structure:
 ### Experience
     {
@@ -77,7 +77,4 @@ The scraper works by emulating actual browser interactions, so often times it wi
 ## Helper files
 ### keyset.json
 This is a json file containing the XPath selectors mapping to the identity of the html tags containing the parameters of interest i.e. Name, Experience and Education. Considerable manual effort was invested into identifying these tags and their corresponding selectors. Do not be surprised if LinkedIn changes the identity of the html tags, in which case you will have to update the XPath selectors in this file manually.
-
-### exponential_lambda_1_in_2.csv
-This is a sample of 1000 waiting times in units of seconds, drawn from an exponential distribution with parameter 0.5 (i.e. mean of 1 click every 2 seconds). It is meant to simulate the distribution of human clicks in normal browser interactions. If you prefer 
 
