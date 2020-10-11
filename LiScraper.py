@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from parsel import Selector
 from functools import reduce
 from time import sleep
+import numpy as np
 import time
 import ujson
 import csv
@@ -15,12 +16,13 @@ class Scraper:
     def __init__(self):
 
         self.credentials = 'pd.json'
-        self.keyset = 'keyset_2020.json'
-        self.results = 'results_2020.csv'
-        self.profileKey = 'dataKey_2020.json'
+        self.keyset = 'keyset.json'
+        self.results = 'results.csv'
+        self.profileKey = 'dataKey.json'
         self.searchQuery = 'data scientist AND Singapore'
         self.completedPages = 0
         self.totalPages = 100
+        self.expo = list(np.random.exponential(2, 1000))
 
         print('\n')
         print('Reading in files...')
@@ -55,9 +57,10 @@ class Scraper:
                 print('Writing new results list.')
         
         #exponential distribution sample of wait times with lambda of 1 in 2s
-        with open('exponential_lambda_1_in_2.csv') as b:
-            next(b)
-            self.expo = [float(line) for line in b]
+        # with open('exponential_lambda_1_in_2.csv') as b:
+        #     next(b)
+        #     self.expo = [float(line) for line in b]
+        
 
         self.scrollCounter = 0
         self.profileCounter = {}
