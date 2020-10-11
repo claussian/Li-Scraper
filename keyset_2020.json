@@ -1,0 +1,108 @@
+{
+    "first_set": [
+        {
+            "key": "username",
+            "value": "//input[contains(@name, \"session_key\")]"
+        },
+        {
+            "key": "password",
+            "value": "//input[contains(@name, \"session_password\")]"
+        },
+        {
+            "key": "login",
+            "value": "//*[@class=\"sign-in-form__submit-button\"]"
+        },
+        {
+            "key": "search_bar",
+            "value": "//input[contains(@placeholder, \"Search\")]"
+        },
+        {
+            "key": "people",
+            "value": "//button[contains(@aria-label, \"View only People results\")]/span"
+        },
+        {
+            "key": "page-icon",
+            "value": "//button[contains(@aria-label, \"Page ZZ\")]"
+        },
+        {
+            "key": "next-icon",
+            "value": "//button[contains(@class, \"pagination__button--next\")]"
+        }
+    ],
+    "second_set": [
+        {
+            "key": "username",
+            "value": "//*[@id=\"username\"]"
+        },
+        {
+            "key": "password",
+            "value": "//*[@id=\"password\"]"
+        },
+        {
+            "key": "login",
+            "value": "//*[@id=\"app__container\"]/main/div/form/div[3]/button"
+        },
+        {
+            "key": "search_bar",
+            "value": "//input[contains(@placeholder, \"Search\")]"
+        },
+        {
+            "key": "people",
+            "value": "//button[contains(@aria-label, \"View only People results\")]/span"
+        },
+        {
+            "key": "page-icon",
+            "value": "//button[contains(@aria-label, \"Page ZZ\")]"
+        },
+        {
+            "key": "next-icon",
+            "value": "//button[contains(@class, \"pagination__button--next\")]"
+        }
+    ],
+    "profile": [
+        {
+            "key": "profile",
+            "value": "search-result__result-link"
+        },
+        {
+            "key": "name",
+            "value": "inline:::t-24:::t-black:::t-normal:::break-words"
+        },
+        {
+            "key":"name-alt",
+            "value":"pv-top-card-v3--list"
+        },
+        {
+            "key": "title",
+            "value": "mt1:::t-18:::t-black:::t-normal"
+        },
+        {
+            "key": "position",
+            "value": "pv-position-entity"
+        },
+        {
+            "key": "company",
+            "value": "pv-entity__secondary-title"
+        },
+        {
+            "key": "duration",
+            "value": "pv-entity__bullet-item-v2"
+        },
+        {
+            "key": "education",
+            "value": "pv-education-entity"
+        },
+        {
+            "key": "certification",
+            "value": "pv-entity__degree-info"
+        },
+        {
+            "key": "cert-breakdown",
+            "value": "pv-entity__comma-item"
+        },
+        {
+            "key": "last-span",
+            "value": "//span/following-sibling::*[1][name()=\"span\"]/text()"
+        }
+    ]
+}
