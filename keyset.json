@@ -2,15 +2,15 @@
     "first_set": [
         {
             "key": "username",
-            "value": "//input[contains(@class, \"login-email\")]"
+            "value": "//input[contains(@name, \"session_key\")]"
         },
         {
             "key": "password",
-            "value": "//input[contains(@class, \"login-password\")]"
+            "value": "//input[contains(@name, \"session_password\")]"
         },
         {
             "key": "login",
-            "value": "//*[@id=\"login-submit\"]"
+            "value": "//*[@class=\"sign-in-form__submit-button\"]"
         },
         {
             "key": "search_bar",
