@@ -19,7 +19,7 @@ This will store the unique profile links that have been scraped. The scraper mig
 This will contain the search query for profiles of interest.
 
 `self.completedPages`
-In case the scraper halts midway, this will enable you to pick up at the page where you left off.
+In case the scraper halts midway, this variable will enable you to pick up at the page where you left off. Specify for example `self.completedPages = 9` if the scraper crashes at page 10 of your results.
 
 `self.totalPages`
 This determines the total number of pages that your scraper will evaluate. By default, LinkedIn does not display more than 100 pages of results for any search query.
@@ -72,7 +72,7 @@ experience, the data for each of these parameters are written as a json object a
 The field `certification` contains up to 3 sub-parameters: Certificate (Bachelors/Masters etc.), Domain (Biology/Computer Science etc.) and Merit (First Class Honours/ 4.0 GPA etc.). These sub-parameters are delimited by triple colon `:::`.
 
 ## Troubleshooting
-The scraper works by emulating actual browser interactions, so often times it will fail if the browser has not updated to the correct state and does not contain the HTML elements being looked for. In particular, if the comment `Finding next icon...` is being repeated multiple times in Terminal, the driver is attempting to scroll down to the bottom of the page but the browser is not responding for some reason. In this situation, it suffices to manually scroll down the page to help the driver along. Otherwise, if the scraper crashes, it does not hurt to restart the execution. The file `dataKey.json` will ensure that the browser will pick up where it left off.
+The scraper works by emulating actual browser interactions, so often times it will fail if the browser has not updated to the correct state and does not contain the HTML elements being looked for. In particular, if the comment `Finding next icon...` is being repeated multiple times in Terminal, the driver is attempting to scroll down to the bottom of the page but the browser is not responding for some reason. In this situation, it suffices to manually scroll down the page to help the driver along. Otherwise, if the scraper crashes, it does not hurt to restart the execution. You can specify the page to start using `self.completedPages`, and the file `dataKey.json` will ensure that the scraper will pick up where it left off.
 
 ## Helper files
 ### keyset.json
