@@ -7,7 +7,12 @@ Also note that LinkedIn will not display profiles beyond 3rd degree connections.
 Within the script, the following parameters can be changed according to your requirements:
 
 `pd.json`
-Supply your LinkedIn credentials in this json file with the following keys: `username` and `pd`.
+Supply your LinkedIn credentials in this json file with the following structure:
+
+    {
+        "username": "username",
+        "pd": "password"
+    }
 
 `results.csv`
 Profiles will be written to this file in .csv format, one profile per row. You do not have to create this file before running the script.
@@ -25,7 +30,7 @@ In case the scraper halts midway, this variable will enable you to pick up at th
 This determines the total number of pages that your scraper will evaluate. By default, LinkedIn does not display more than 100 pages of results for any search query.
 
 `self.expo`
-This is a sample of 1000 waiting times in units of seconds, drawn from an exponential distribution with scale parameter 2 (i.e. mean of 1 click every 2 seconds). It is meant to simulate the distribution of gap times between human clicks in normal browser interactions. Change the scale parameter to simulate your preferred distribution of waiting times.
+This is a sample of 1000 interval times in units of seconds, drawn from an exponential distribution with scale parameter 2 (i.e. mean of 1 click every 2 seconds). It is meant to simulate the distribution of gap times between human clicks in normal browser interactions. Change the scale parameter to simulate your preferred distribution of interval times.
 
 
 ## Pipfile
@@ -72,7 +77,7 @@ experience, the data for each of these parameters are written as a json object a
 The field `certification` contains up to 3 sub-parameters: Certificate (Bachelors/Masters etc.), Domain (Biology/Computer Science etc.) and Merit (First Class Honours/ 4.0 GPA etc.). These sub-parameters are delimited by triple colon `:::`.
 
 ## Troubleshooting
-The scraper works by emulating actual browser interactions, so often times it will fail if the browser has not updated to the correct state and does not contain the HTML elements being looked for. In particular, if the comment `Finding next icon...` is being repeated multiple times in Terminal, the driver is attempting to scroll down to the bottom of the page but the browser is not responding for some reason. In this situation, it suffices to manually scroll down the page to help the driver along. Otherwise, if the scraper crashes, it does not hurt to restart the execution. You can specify the page to start using `self.completedPages`, and the file `dataKey.json` will ensure that the scraper will pick up where it left off.
+The scraper works by emulating actual browser interactions, so often times it will fail if the page has not updated to the correct state and does not contain the HTML elements being looked for. In particular, if the comment `Finding next icon...` is being repeated multiple times in Terminal, the driver is attempting to scroll down to the bottom of the page but the browser is not responding for some reason. In this situation, it suffices to manually scroll down the page to help the driver along. Otherwise, if the scraper crashes, it does not hurt to restart the execution. You can specify the page to start using `self.completedPages`, and the file `dataKey.json` will ensure that the scraper will pick up where it left off.
 
 ## Helper files
 ### keyset.json
